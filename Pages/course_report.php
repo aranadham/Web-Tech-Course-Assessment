@@ -288,45 +288,61 @@ if (isset($_GET['subject_id'])) {
                                 output += "<br><br><br>";
                                 output += "<h2>COURSE ASSESSMENT REPORT</h2>";
                                 output += "<table style='width: 100%; margin-bottom: 40px; border-collapse: collapse; font-size: 24px;'>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2; '>Course Name</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + courseData[0]['Course_Name'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Course Code</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + courseData[0]['Course_Code'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Session</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + courseData[0]['Session'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Lecture</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + courseData[0]['Lec'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Date</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + courseData[0]['Date'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Subject ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + courseData[0]['Subject_ID'] + "</td></tr>";
+                                const courseFields = ['Course_Name', 'Course_Code', 'Session', 'Lec', 'Date', 'Subject_ID'];
+                                const courseLabels = ['Course Name', 'Course Code', 'Session', 'Lecture', 'Date', 'Subject ID'];
+                                for (let i = 0; i < courseFields.length; i++) {
+                                    output += `<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2;'>${courseLabels[i]}</td>`;
+                                    for (let row of courseData) {
+                                        output += `<td style='border: 1px solid black; padding: 8px; text-align: center;'>${row[courseFields[i]]}</td>`;
+                                    }
+                                    output += "</tr>";
+                                }
                                 output += "</table>";
 
                                 // CLO Data Table
                                 output += "<br><br><br><br><br><br>";
                                 output += "<h2>Course Outcomes</h2>";
                                 output += "<table style='width: 100%; margin-bottom: 40px; border-collapse: collapse; font-size: 24px;'>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>CLO ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloData[0]['CLO_ID'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>CLO Caption</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloData[0]['CLO_Caption'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>CLO Description</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloData[0]['CLO_Description'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Percentage</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloData[0]['Persentage'] + "</td></tr>";
+                                const cloFields = ['CLO_ID', 'CLO_Caption', 'CLO_Description', 'Persentage'];
+                                const cloLabels = ['CLO ID', 'CLO Caption', 'CLO Description', 'Percentage'];
+                                for (let i = 0; i < cloFields.length; i++) {
+                                    output += `<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2;'>${cloLabels[i]}</td>`;
+                                    for (let row of cloData) {
+                                        output += `<td style='border: 1px solid black; padding: 8px; text-align: center;'>${row[cloFields[i]]}</td>`;
+                                    }
+                                    output += "</tr>";
+                                }
                                 output += "</table>";
 
                                 // CLO Detail Data Table
                                 output += "<br><br><br><br><br><br>";
                                 output += "<h2>CLO Details</h2>";
                                 output += "<table style='width: 100%; margin-bottom: 40px; border-collapse: collapse; font-size: 24px;'>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>CLO Detail ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloDetailData[0]['CLO_Detail_ID'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>CLO ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloDetailData[0]['CLO_ID'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Grade ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + cloDetailData[0]['Grade_ID'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Percentage</td><td style='border: 1px solid black; padding: 8px; text-align:center;'>" + cloDetailData[0]['Percentage'] + "</td></tr>";
+                                const cloDetailFields = ['CLO_Detail_ID', 'CLO_ID', 'Grade_ID', 'Percentage'];
+                                const cloDetailLabels = ['CLO Detail ID', 'CLO ID', 'Grade ID', 'Percentage'];
+                                for (let i = 0; i < cloDetailFields.length; i++) {
+                                    output += `<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2;'>${cloDetailLabels[i]}</td>`;
+                                    for (let row of cloDetailData) {
+                                        output += `<td style='border: 1px solid black; padding: 8px; text-align: center;'>${row[cloDetailFields[i]]}</td>`;
+                                    }
+                                    output += "</tr>";
+                                }
                                 output += "</table>";
 
                                 // Grade Detail Data Table
                                 output += "<br><br><br><br><br><br>";
                                 output += "<h2>Grade Details</h2>";
                                 output += "<table style='width: 100%; margin-bottom: 40px; border-collapse: collapse; font-size: 24px;'>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Grade ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + gradeDetailData[0]['Grade_ID'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Activity Name</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + gradeDetailData[0]['Activity_Name'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Percentage</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + gradeDetailData[0]['Percentage'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Student ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + gradeDetailData[0]['Student_ID'] + "</td></tr>";
-                                output += "<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2'>Subject ID</td><td style='border: 1px solid black; padding: 8px; text-align: center;'>" + gradeDetailData[0]['Subject_ID'] + "</td></tr>";
+                                const gradeDetailFields = ['Grade_ID', 'Activity_Name', 'Percentage', 'Student_ID', 'Subject_ID'];
+                                const gradeDetailLabels = ['Grade ID', 'Activity Name', 'Percentage', 'Student ID', 'Subject ID'];
+                                for (let i = 0; i < gradeDetailFields.length; i++) {
+                                    output += `<tr><td style='border: 1px solid black; padding: 8px; text-align: left; background-color: #f2f2f2;'>${gradeDetailLabels[i]}</td>`;
+                                    for (let row of gradeDetailData) {
+                                        output += `<td style='border: 1px solid black; padding: 8px; text-align: center;'>${row[gradeDetailFields[i]]}</td>`;
+                                    }
+                                    output += "</tr>";
+                                }
                                 output += "</table>";
-
 
                                 const diElement = document.getElementById("di");
                                 if (diElement) {
@@ -341,6 +357,10 @@ if (isset($_GET['subject_id'])) {
                     };
                     xhr.send();
                 }
+
+
+
+
 
                 function downloadWord() {
                     const courseName = document.getElementById("courseName").innerText;
