@@ -40,9 +40,17 @@
         <div class="container">
             <h1>CLO Information</h1>
             <form id="cloForm">
+
                 <div class="info">
-                    <label for="subjectId">Subject ID:</label>
-                    <input type="text" id="subjectId" name="subjectId" required>
+                    <label for="courseName">Course Name:</label>
+                    <select id="courseName" name="courseName" required>
+                        <option value="">Select Course</option>
+                        <!-- Options will be populated dynamically through JavaScript -->
+                    </select>
+                </div>
+                <div class="info">
+                    <!-- <label for="subjectId">Subject ID:</label> -->
+                    <input type="hidden" id="subjectId" name="subjectId" required>
                 </div>
 
                 <div class="info">
@@ -94,6 +102,29 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        });
+
+        // Fetch course names and populate the dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_course_names.php')
+                .then(response => response.json())
+                .then(data => {
+                    const courseDropdown = document.getElementById('courseName');
+                    data.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.Subject_ID;
+                        option.textContent = course.Course_Name;
+                        courseDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching course names:', error);
+                });
+
+            document.getElementById('courseName').addEventListener('change', function() {
+                const selectedSubjectId = this.value;
+                document.getElementById('subjectId').value = selectedSubjectId;
+            });
         });
     </script>
 

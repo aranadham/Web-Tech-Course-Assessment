@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <<div class="nav-rail">
+    <div class="nav-rail">
         <a href="student.php" class="nav-item active">
             <img src="../icons/student1.svg" alt="">
             <span class="text">Student</span>

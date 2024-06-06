@@ -6,62 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grade Detail Information</title>
     <link rel="stylesheet" href="../index.css">
-    <!-- <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        .info {
-            margin-bottom: 20px;
-        }
-
-        .info label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .info input {
-            width: calc(100% - 12px);
-            padding: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .submit-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background-color: #0056b3;
-        }
-    </style> -->
 </head>
 
 <body>
@@ -117,8 +61,16 @@
                 </div>
 
                 <div class="info">
-                    <label for="subjectId">Subject ID:</label>
-                    <input type="text" id="subjectId" name="subjectId" required>
+                    <label for="courseName">Course Name:</label>
+                    <select id="courseName" name="courseName" required>
+                        <option value="">Select Course</option>
+                        <!-- Options will be populated dynamically through JavaScript -->
+                    </select>
+                </div>
+
+                <div class="info">
+                    <!-- <label for="subjectId">Subject ID:</label> -->
+                    <input type="hidden" id="subjectId" name="subjectId" required>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit</button>
@@ -150,6 +102,29 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        });
+
+        // Fetch course names and populate the dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('get_course_names.php')
+                .then(response => response.json())
+                .then(data => {
+                    const courseDropdown = document.getElementById('courseName');
+                    data.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.Subject_ID;
+                        option.textContent = course.Course_Name;
+                        courseDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching course names:', error);
+                });
+
+            document.getElementById('courseName').addEventListener('change', function() {
+                const selectedSubjectId = this.value;
+                document.getElementById('subjectId').value = selectedSubjectId;
+            });
         });
     </script>
 
