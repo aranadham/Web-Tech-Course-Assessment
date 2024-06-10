@@ -1,5 +1,7 @@
 FROM php:7.4-cli
 
-COPY . /scr/pairaw/sc/
+WORKDIR /scr/pairaw/sc/
+
+COPY . .
 
 EXPOSE 8081
